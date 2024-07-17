@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todaydo_app/Imformation_User/information_user.dart';
+import 'package:todaydo_app/screen/add_task_screen.dart';
 import 'package:todaydo_app/widget/tasks_list.dart';
 
 class TasksScreen extends StatelessWidget {
@@ -11,7 +12,16 @@ class TasksScreen extends StatelessWidget {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => SingleChildScrollView(
+                  child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: const AddTaskScreen())),
+            );
+          },
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           backgroundColor: Colors.indigo[400],
