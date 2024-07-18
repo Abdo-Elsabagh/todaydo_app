@@ -25,7 +25,7 @@ class AddTaskScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           TextButton(
             onPressed: () {},
