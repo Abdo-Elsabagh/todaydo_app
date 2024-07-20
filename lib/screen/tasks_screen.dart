@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:todaydo_app/Imformation_User/information_user.dart';
+import 'package:todaydo_app/model/task.dart';
 import 'package:todaydo_app/screen/add_task_screen.dart';
 import 'package:todaydo_app/widget/tasks_list.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(
+      name: 'go shopping',
+    ),
+    Task(name: 'buy a gift'),
+    Task(name: 'repair the car'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +28,7 @@ class TasksScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
-              context: context, 
+              context: context,
               builder: (context) => SingleChildScrollView(
                   child: Container(
                       padding: EdgeInsets.only(
@@ -69,7 +83,7 @@ class TasksScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
-                  child: const TasksList(),
+                  child: TasksList(tasks),
                 ),
               )
             ],

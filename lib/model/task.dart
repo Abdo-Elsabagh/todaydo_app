@@ -3,6 +3,6 @@ class Task {
   bool isDone;
   Task({required this.name, this.isDone = false});
   void doneChenge() {
-    isDone != isDone;
+    isDone = !isDone;
   }
 }
