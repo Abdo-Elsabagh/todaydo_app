@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:todaydo_app/Imformation_User/upload_viem.dart';
 import 'package:todaydo_app/core/app_colors.dart';
+import 'package:todaydo_app/core/app_local_storage.dart';
 import 'package:todaydo_app/screen/tasks_screen.dart';
 
 class SplachView extends StatefulWidget {
@@ -16,9 +18,11 @@ class _SplachViewState extends State<SplachView> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 4), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const TasksScreen(),
-      ));
+      AppLocal.getBool(AppLocal.isUpload).then((value) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                value ? const TasksScreen() : const UploadViem()));
+      });
     });
   }
 

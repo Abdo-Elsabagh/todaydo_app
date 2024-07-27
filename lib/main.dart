@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todaydo_app/screen/tasks_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:todaydo_app/model/task_data.dart';
 import 'package:todaydo_app/splach_view.dart';
 
 void main() {
@@ -11,9 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplachView(),
+    return ChangeNotifierProvider(
+      create: (context) => TaskData(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplachView(),
+      ),
     );
   }
 }

@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:todaydo_app/core/app_colors.dart';
+import 'package:todaydo_app/core/app_local_storage.dart';
 
 // ignore: camel_case_types
 class informationUser extends StatelessWidget {
@@ -8,23 +12,38 @@ class informationUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Hello Saysed',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
+            FutureBuilder(
+              future: AppLocal.getChached(AppLocal.namekey),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    'Hello ${snapshot.data!.split(' ').first} ',
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800),
+                  );
+                } else {
+                  return const Text(
+                    'Hello',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800),
+                  );
+                }
+              },
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Text(
+            const Text(
               'Have a nice day',
               style: TextStyle(
                 color: Colors.black,
@@ -34,13 +53,29 @@ class informationUser extends StatelessWidget {
             ),
           ],
         ),
-        CircleAvatar(
-          radius: 22,
-          backgroundColor: Colors.white,
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/user.png'),
-            radius: 20,
-          ),
+        FutureBuilder(
+          future: AppLocal.getChached(AppLocal.imagekey),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return CircleAvatar(
+                radius: 26,
+                backgroundColor: Colors.white,
+                child: CircleAvatar(
+                  backgroundImage: FileImage(File(snapshot.data!)),
+                  radius: 24,
+                ),
+              );
+            } else {
+              return CircleAvatar(
+                  radius: 26,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: AppColors.grey,
+                    backgroundImage: const AssetImage('assets/user.png'),
+                  ));
+            }
+          },
         )
       ],
     );

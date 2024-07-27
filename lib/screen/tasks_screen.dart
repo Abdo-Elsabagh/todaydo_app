@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todaydo_app/Imformation_User/information_user.dart';
-import 'package:todaydo_app/model/task.dart';
+import 'package:todaydo_app/model/task_data.dart';
 import 'package:todaydo_app/screen/add_task_screen.dart';
 import 'package:todaydo_app/widget/tasks_list.dart';
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(
-      name: 'go shopping',
-    ),
-    Task(name: 'buy a gift'),
-    Task(name: 'repair the car'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +22,10 @@ class _TasksScreenState extends State<TasksScreen> {
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: AddTaskScreen((newTaskTitle) {
-                        setState(() {
-                          tasks.add(Task(name: newTaskTitle));
-                          Navigator.pop(context);
-                        });
+                        // setState(() {
+                        //   tasks.add(Task(name: newTaskTitle));
+                        //   Navigator.pop(context);
+                        // });
                       }))),
             );
           },
@@ -77,7 +65,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 ],
               ),
               Text(
-                '${tasks.length} Tasks',
+                '${Provider.of<TaskData>(context).tasks.length} Tasks',
                 style: const TextStyle(color: Colors.white, fontSize: 18),
               ),
               const SizedBox(
@@ -88,7 +76,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
-                  child: TasksList(tasks),
+                  child: const TasksList(),
                 ),
               )
             ],
